@@ -85,7 +85,7 @@ class Node:
         self.val = val
         self.left = None
         self.right = None
-    def insert(self, node):
+    def insert_as_degenerate(self, node):
         if node.val < self.val:
             if not self.left:
                 self.left = node
@@ -105,42 +105,98 @@ class Node:
                     self.right = node
                 else:
                     self.right.insert(node)
+
+    def insert(self, node):
+        if node.val < self.val:
+            if not self.left:
+                self.left = node
+            else: # see where to insert new node past the existing node, recursively
+                self.left.insert(node)
+        else: # node.val >= self.val
+            if not self.right:
+                self.right = node
+            else:
+                self.right.insert(node)
     def dft_preorder(self):
         print self.val
         if self.left:
             self.left.dft_preorder()
         if self.right:
             self.right.dft_preorder()
-    def dft_postorder(self):
+    def dft_postorder(self): # application: evaluate a parse tree
         if self.left:
             self.left.dft_postorder()
         if self.right:
             self.right.dft_postorder()
         print self.val
+    def dft_inorder(self): # application: convert parse tree back to original expression
+        if self.left:
+            self.left.dft_inorder()
+        print self.val
+        if self.right:
+            self.right.dft_inorder()
+    def bft(self): 
+        thislevel = [self]
+        while thislevel:
+            nextlevel = []
+            for node in thislevel:
+                print node.val
+                if node.left:
+                    nextlevel.append(node.left)
+                if node.right:
+                    nextlevel.append(node.right)
+            thislevel = nextlevel
+    def bft_by_level(self): 
+        thislevel = [self]
+        while thislevel:
+            nextlevel = []
+            for node in thislevel:
+                print node.val,
+                if node.left:
+                    nextlevel.append(node.left)
+                if node.right:
+                    nextlevel.append(node.right)
+            thislevel = nextlevel
+            print ''
 
 
     
 # construct tree; see if you get desired result
-root = Node(8)
+one = Node(1)
+two = Node(2)
+three = Node(3)
+four = Node(4)
 five = Node(5)
-seven = Node(7)
 six = Node(6)
+seven = Node(7)
 eight = Node(8)
 nine = Node(9)
 ten = Node(10)
+thirteen = Node(13)
+fourteen = Node(14)
 
-# print root.val
-root.insert(five)
-# print root.left.val
+root = eight
+root.insert(three)
+root.insert(one)
 root.insert(six)
-# print root.left.val
-root.insert(eight)
-# print root.left.val, root.right.right.val
+root.insert(four)
 root.insert(seven)
-# print root.left.val, root.right.right.right.val
-root.insert(nine)
 root.insert(ten)
-root.dft_postorder()
+root.insert(fourteen)
+root.insert(thirteen)
+
+# root.dft_preorder()
+# print ''
+# root.dft_postorder()
+# print ''
+# root.dft_inorder()
+# print ''
+# root.bft()
+root.bft_by_level()
+
+"""
+4.6 Write a function that returns the height of a given tree.
+"""
 
 """
 5. Write a function that, given two binary trees, returns a boolean indicating whether or not the trees have identical structure and value (ie: are they the same tree).
