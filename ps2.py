@@ -18,10 +18,20 @@ def binary_search(l, target):
             return True
     return False
 
-print binary_search([1, 2, 3, 4], 2)
-
-
 """1.1 Implement a binary search function recursively."""
+
+def recursive_binary_search(l, target):
+    if not l:
+        return False
+    
+    middle = len(l)//2
+    current_element = l[middle]
+    if current_element == target:
+        return True
+    if target < current_element:
+        return recursive_binary_search(l[:middle], target)
+    else:
+        return recursive_binary_search(l[middle + 1:], target)
 
 """2. Implement a function to compute the nth fibonacci number recursively.
 
@@ -29,6 +39,13 @@ print binary_search([1, 2, 3, 4], 2)
     2 -> 2
     3 -> 3
     4 -> 5"""
+
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+"""2.1 Implement a function to print the fibonacci numbers up to n, inclusive."""
 
 """3. Implement a function that recursively computes the length of a list
 
