@@ -113,9 +113,9 @@ class Node:
             self.right.dft_preorder()
     def dft_postorder(self):
         if self.left:
-            self.left.dft_preorder()
+            self.left.dft_postorder()
         if self.right:
-            self.right.dft_preorder()
+            self.right.dft_postorder()
         print self.val
 
 
