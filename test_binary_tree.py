@@ -44,5 +44,7 @@ root.insert(thirteen)
 
 # print root.height()
 # print root.balanced()
+
+root2 = seven
 print identical_trees(root, root)
 
