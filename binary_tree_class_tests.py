@@ -42,7 +42,7 @@ root.insert(thirteen)
 # root.bft()
 # root.bft_by_level()
 
-# print root.height()
+print root.height()
 # print root.balanced()
 
 root2 = seven

@@ -188,6 +188,12 @@ class Node:
         elif self.left:
             return 1 + self.left.height()
 
+    # if this were an external function
+    # def height(node):
+    #     if not node:
+    #         return 0
+    #     return 1 + max(height(node.left), height(node.right))
+
     def balanced(self):
         # if height of tree is <= 2, it is balanced by definition
         if self.height() <= 2:
