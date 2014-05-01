@@ -1,7 +1,7 @@
 import unittest
 from ps2 import *
 
-class TestListOperations(unittest.TestCase):
+class TestProblemSet2Functions(unittest.TestCase):
 
     def setUp(self):
         self.l1 = [1, 2, 3, 4]
