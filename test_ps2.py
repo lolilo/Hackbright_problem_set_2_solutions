@@ -35,8 +35,8 @@ class TestListOperations(unittest.TestCase):
         self.assertEqual(quick_sort_one_pass([2, 3, 1]), [1, 2, 3])
 
     def test_tuples_that_add_to_target(self):
-        self.assertEqual(tuples_that_add_to_target([1, 2, 3, 4, 0], 3), [(1,2), (3,0)])
-        self.assertEqual(tuples_that_add_to_target([0, 0, -1, 1, 0, 1, -1], 0 ), [(0, 0), (-1, 1), (1, -1)])
+        self.assertEqual(tuples_that_add_to_target([1, 2, 3, 4, 0], 3), [(0,3), (1,2)])
+        self.assertEqual(tuples_that_add_to_target([0, 0, -1, 1, 0, 1, -1], 0 ), [(0, 0), (1, -1), (1, -1)])
 
 if __name__ == '__main__':
     unittest.main()

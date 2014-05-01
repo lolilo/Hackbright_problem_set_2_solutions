@@ -301,9 +301,16 @@ def tuples_that_add_to_target(l, target):
     keys = d.keys()
     for key in keys: # O(n)
         desired_pair = target - key
-        print key, desired_pair
-        while d.get(desired_pair) and d[desired_pair] > 0 and key > 0:
+        while d.get(desired_pair) and d[desired_pair] > 0 and d[key] > 0:
+            # need to make sure it's not looking up itself for (0, 0)
+            # remember to check edge/special cases!
+            if key == desired_pair and d[key] < 2:
+                break
             tuple_list.append((key, desired_pair))
             d[key] -= 1
             d[desired_pair] -= 1
+
     return tuple_list
+    
+# print tuples_that_add_to_target([1, 2, 3, 4, 0], 3)
+# print tuples_that_add_to_target([0, 0, -1, 1, 0, 1, -1], 0 )
