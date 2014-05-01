@@ -14,6 +14,9 @@ ten = Node(10)
 thirteen = Node(13)
 fourteen = Node(14)
 
+one2 = Node(1)
+nine2 = Node(9)
+
 root = eight
 root.insert(three)
 root.insert(one)
@@ -23,6 +26,12 @@ root.insert(seven)
 root.insert(ten)
 root.insert(fourteen)
 root.insert(thirteen)
+
+# making it balanced
+# root.insert(one2) # THERE IS AN INFINITE LOOP HERE IN MY INSERT. I AM SO DUMB. 
+# I'M LINKING A NODE TO ITSELF.
+# root.insert(nine2)
+
 
 # root.dft_preorder()
 # print ''
@@ -35,3 +44,4 @@ root.insert(thirteen)
 
 # print root.height()
 print root.balanced()
+

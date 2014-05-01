@@ -166,31 +166,26 @@ class Node:
 
     """Super clunky. This would be shorter if it were an external function and I could pass in None."""
     def height(self):
-        if not self.left and not self.right:
+        if (not self.left) and (not self.right):
             return 1
-        if self.right and self.left:
+        elif self.right and self.left:
             return 1 + max(self.left.height(), self.right.height())
-        if self.right:
+        elif self.right:
             return 1 + self.right.height()
-        if self.left:
+        elif self.left:
             return 1 + self.left.height()
 
     def balanced(self):
-        if self.left and (not self.right):
-            if self.left.left:
-                return False
-        if self.right and (not self.left):
-            if self.right.right:
-                return False
         # if height of tree is <= 2, it is balanced by definition
         if self.height() <= 2:
             return True
-        print self.val
-        return self.left.balanced() and self.right.balanced()
 
-"""
-4.6 Write a function that returns the height of a given tree.
-"""
+        unbalanced_left = (self.left and not self.right) and (self.left.left or self.left.right)
+        unbalanced_right = (self.right and not self.left) and (self.right.left or self.right.right)
+        if unbalanced_left or unbalanced_right:
+            return False
+
+        return self.left.balanced() and self.right.balanced()
 
 """
 5. Write a function that, given two binary trees, returns a boolean indicating whether or not the trees have identical structure and value (ie: are they the same tree).
