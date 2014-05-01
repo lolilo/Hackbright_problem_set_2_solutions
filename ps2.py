@@ -254,38 +254,56 @@ Move all elements in the list that are smaller than the first element to the lef
     [5, 9, 1, 3, 7, 6, 2] -> [1, 3, 2, 5, 9, 7, 6]
     [2, 3, 1] -> [1, 2, 3]
 """
+
+# I'm having this return [3, 2, 1, 5, 7, 6, 9] instead of [1, 3, 2, 5, 9, 7, 6]
 def quick_sort_one_pass(l):
     pivot_value = l[0]
     left_pointer = 1
     right_pointer = len(l) - 1
 
-    while left_pointer < right_pointer:
-        if l[left_pointer] =< pivot_value:
+    while left_pointer <= right_pointer:
+        while left_pointer <= right_pointer and l[left_pointer] <= pivot_value:
             left_pointer += 1
-        elif l[right_pointer] >= pivot_value:
+        while left_pointer <= right_pointer and l[right_pointer] >= pivot_value:
             right_pointer -= 1
-        # swap
-        temp = l[left_pointer]
-        l[left_pointer] = l[right_pointer]
-        l[right_pointer] = temp
+        # after while loops, we've found elements to swap, unless the pointers have passed each other
+        if left_pointer <= right_pointer:
+            temp = l[left_pointer]
+            l[left_pointer] = l[right_pointer]
+            l[right_pointer] = temp
 
-
-    # while i < len(l) - 1:
-    #     if l[i] < pivot_value:
-    #         # swap
-    #         value_to_swap = l[i]
-    #         l[j] = value_to_swap
-    #         j = i # keep track of where to swap next
-
-    #     i += 1
-
+    # after we've iterated through the list and swapped all proper elements, we need put the pivot in place
+    # left_pointer will be pointing to an element <= pivot_value, so we can swap l[left_pointer] with l[0]
+    temp = l[right_pointer]
+    l[right_pointer] = pivot_value
+    l[0] = temp
+    return l # for unit test purposes
 
 """
 7. Write a function that takes in a list of integers and a target number. 
-The function should return a list of tuples, each tuple containing a pair of numbers from the original list that add up to zero. 
+The function should return a list of tuples, each tuple containing 
+a pair of numbers from the original list that add up to the target number. 
 Do not use a number more than once.
 
     [1, 2, 3, 4, 0], 3 -> [(1,2), (3,0)]
     [0, 0, -1, 1, 0, 1, -1], 0 -> [(0, 0), (-1, 1), (1, -1)]
 """
 
+def tuples_that_add_to_target(l, target):
+    d = {}
+    for num in l: # O(n)
+        if d.get(num):
+            d[num] += 1
+        else:
+            d[num] = 1
+
+    tuple_list = []
+    keys = d.keys()
+    for key in keys: # O(n)
+        desired_pair = target - key
+        print key, desired_pair
+        while d.get(desired_pair) and d[desired_pair] > 0 and key > 0:
+            tuple_list.append((key, desired_pair))
+            d[key] -= 1
+            d[desired_pair] -= 1
+    return tuple_list
