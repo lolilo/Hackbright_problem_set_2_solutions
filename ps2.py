@@ -117,24 +117,28 @@ class Node:
                 self.right = node
             else:
                 self.right.insert(node)
+    """Dear Christian, implementing these as methods feels clunky."""
     def dft_preorder(self):
         print self.val
         if self.left:
             self.left.dft_preorder()
         if self.right:
             self.right.dft_preorder()
+
     def dft_postorder(self): # application: evaluate a parse tree
         if self.left:
             self.left.dft_postorder()
         if self.right:
             self.right.dft_postorder()
         print self.val
+
     def dft_inorder(self): # application: convert parse tree back to original expression
         if self.left:
             self.left.dft_inorder()
         print self.val
         if self.right:
             self.right.dft_inorder()
+
     def bft(self): 
         thislevel = [self]
         while thislevel:
@@ -146,6 +150,7 @@ class Node:
                 if node.right:
                     nextlevel.append(node.right)
             thislevel = nextlevel
+
     def bft_by_level(self): 
         thislevel = [self]
         while thislevel:
@@ -159,40 +164,29 @@ class Node:
             thislevel = nextlevel
             print ''
 
+    """Super clunky. This would be shorter if it were an external function and I could pass in None."""
+    def height(self):
+        if not self.left and not self.right:
+            return 1
+        if self.right and self.left:
+            return 1 + max(self.left.height(), self.right.height())
+        if self.right:
+            return 1 + self.right.height()
+        if self.left:
+            return 1 + self.left.height()
 
-    
-# construct tree; see if you get desired result
-one = Node(1)
-two = Node(2)
-three = Node(3)
-four = Node(4)
-five = Node(5)
-six = Node(6)
-seven = Node(7)
-eight = Node(8)
-nine = Node(9)
-ten = Node(10)
-thirteen = Node(13)
-fourteen = Node(14)
-
-root = eight
-root.insert(three)
-root.insert(one)
-root.insert(six)
-root.insert(four)
-root.insert(seven)
-root.insert(ten)
-root.insert(fourteen)
-root.insert(thirteen)
-
-# root.dft_preorder()
-# print ''
-# root.dft_postorder()
-# print ''
-# root.dft_inorder()
-# print ''
-# root.bft()
-root.bft_by_level()
+    def balanced(self):
+        if self.left and (not self.right):
+            if self.left.left:
+                return False
+        if self.right and (not self.left):
+            if self.right.right:
+                return False
+        # if height of tree is <= 2, it is balanced by definition
+        if self.height() <= 2:
+            return True
+        print self.val
+        return self.left.balanced() and self.right.balanced()
 
 """
 4.6 Write a function that returns the height of a given tree.
