@@ -43,5 +43,6 @@ root.insert(thirteen)
 # root.bft_by_level()
 
 # print root.height()
-print root.balanced()
+# print root.balanced()
+print identical_trees(root, root)
 

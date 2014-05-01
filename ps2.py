@@ -85,7 +85,7 @@ class Node:
         self.val = val
         self.left = None
         self.right = None
-    def insert_as_degenerate(self, node):
+    def insert_as_degenerate(self, node): # basically a linked list
         if node.val < self.val:
             if not self.left:
                 self.left = node
@@ -117,7 +117,7 @@ class Node:
                 self.right = node
             else:
                 self.right.insert(node)
-    """Dear Christian, implementing these as methods feels clunky."""
+    """Dear Christian, implementing these as methods feels clunky...I'd prefer them as external functions."""
     def dft_preorder(self):
         print self.val
         if self.left:
@@ -191,6 +191,58 @@ class Node:
 5. Write a function that, given two binary trees, returns a boolean indicating whether or not the trees have identical structure and value (ie: are they the same tree).
 """
 
+def identical_trees(tree1, tree2):
+    if not tree1 and not tree2:
+        return True
+
+    only_one_tree = (tree1 and not tree2) or (not tree1 and tree1)
+
+    only_left_branch = (tree1.left and tree2.left) and (not tree1.right and not tree2.right)
+    only_right_branch = (tree1.right and tree2.right) and (not tree1.left and not tree2.left)
+    both_branches = (tree1.right and tree1.left) and (tree2.right and tree2.right)
+    # WHY DID THESE BOOLEANS NOT WORK? 
+
+    def only_left(tree1, tree2):
+        if (tree1.left and tree2.left) and (not tree1.right and not tree2.right):
+            return True
+        return False
+
+    def only_right(tree1, tree2):
+        if (tree1.right and tree2.right) and (not tree1.left and not tree2.left):
+            return True
+        return False
+
+    def both_branches(tree1, tree2):
+        if (tree1.right and tree1.left) and (tree2.right and tree2.right):
+            return True
+        return False
+
+    # print 'left branch', only_left_branch
+    # print 'right branch', only_right_branch
+    # print 'both', both_branches
+
+    trees_of_same_size = only_left_branch or only_right_branch or both_branches
+    # print trees_of_same_size
+
+    if trees_of_same_size:
+        print 'trees are the same size'
+        print tree1.val, tree2.val
+
+    if only_one_tree or not trees_of_same_size:
+        print ''
+        print 'left branch', only_left(tree1, tree2)
+        print 'right branch', only_right_branch
+        print 'both', both_branches
+        print 'not trees_of_same_size', not trees_of_same_size
+        print 'only_one_tree', only_one_tree
+        print tree1.val
+        print tree2.val
+        return False
+
+    # At this point, we know they have the same stucuture. We need to check values now.
+    if tree1.val != tree2.val:
+        return False
+    return identical_trees(tree1.left, tree2.left) and identical_trees(tree1.right, tree2.right)
 """
 6. Write a function that takes in a randomly ordered list and reorganizes the list as follows: take the first element in the list to be the 'dividing line'. Move all elements in the list that are smaller than the first element to the left of it, and all elements greater to the right.
 
