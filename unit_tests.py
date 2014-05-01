@@ -14,6 +14,11 @@ class TestProblemSet2Functions(unittest.TestCase):
         self.assertEqual(binary_search(self.l1, 4), True)
         self.assertEqual(binary_search(self.l_empty, 9), False)
 
+    def test_binary_search_better(self):
+        self.assertEqual(binary_search_better(self.l1, 5), False)
+        self.assertEqual(binary_search_better(self.l1, 4), True)
+        self.assertEqual(binary_search_better(self.l_empty, 9), False)
+
     def test_recursive_binary_search(self):
         self.assertEqual(recursive_binary_search(self.l1, 5), False)
         self.assertEqual(recursive_binary_search(self.l1, 4), True)

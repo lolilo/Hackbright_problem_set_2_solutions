@@ -18,6 +18,19 @@ def binary_search(l, target):
             return True
     return False
 
+def binary_search_better(l, target):
+    start = 0
+    end = len(l) - 1
+    while start <= end: 
+        middle = start + (end - start)//2
+        if target < l[middle]:
+            end = middle - 1
+        elif target > l[middle]:
+            start = middle + 1
+        else:
+            return True
+    return False
+
 """1.1 Implement a binary search function recursively."""
 
 def recursive_binary_search(l, target):
@@ -273,7 +286,7 @@ def quick_sort_one_pass(l):
             l[right_pointer] = temp
 
     # after we've iterated through the list and swapped all proper elements, we need put the pivot in place
-    # left_pointer will be pointing to an element <= pivot_value, so we can swap l[left_pointer] with l[0]
+    # right_pointer will be pointing to an element <= pivot_value, so we can swap l[right_pointer] with l[0]
     temp = l[right_pointer]
     l[right_pointer] = pivot_value
     l[0] = temp
