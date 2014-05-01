@@ -247,14 +247,43 @@ def identical_trees(tree1, tree2):
 
     return identical_trees(tree1.left, tree2.left) and identical_trees(tree1.right, tree2.right)
 """
-6. Write a function that takes in a randomly ordered list and reorganizes the list as follows: take the first element in the list to be the 'dividing line'. Move all elements in the list that are smaller than the first element to the left of it, and all elements greater to the right.
+6. Write a function that takes in a randomly ordered list and reorganizes the list as follows: 
+take the first element in the list to be the 'dividing line'. 
+Move all elements in the list that are smaller than the first element to the left of it, and all elements greater to the right.
 
     [5, 9, 1, 3, 7, 6, 2] -> [1, 3, 2, 5, 9, 7, 6]
     [2, 3, 1] -> [1, 2, 3]
 """
+def quick_sort_one_pass(l):
+    pivot_value = l[0]
+    left_pointer = 1
+    right_pointer = len(l) - 1
+
+    while left_pointer < right_pointer:
+        if l[left_pointer] =< pivot_value:
+            left_pointer += 1
+        elif l[right_pointer] >= pivot_value:
+            right_pointer -= 1
+        # swap
+        temp = l[left_pointer]
+        l[left_pointer] = l[right_pointer]
+        l[right_pointer] = temp
+
+
+    # while i < len(l) - 1:
+    #     if l[i] < pivot_value:
+    #         # swap
+    #         value_to_swap = l[i]
+    #         l[j] = value_to_swap
+    #         j = i # keep track of where to swap next
+
+    #     i += 1
+
 
 """
-7. Write a function that takes in a list of integers and a target number. The function should return a list of tuples, each tuple containing a pair of numbers from the original list that add up to zero. Do not use a number more than once.
+7. Write a function that takes in a list of integers and a target number. 
+The function should return a list of tuples, each tuple containing a pair of numbers from the original list that add up to zero. 
+Do not use a number more than once.
 
     [1, 2, 3, 4, 0], 3 -> [(1,2), (3,0)]
     [0, 0, -1, 1, 0, 1, -1], 0 -> [(0, 0), (-1, 1), (1, -1)]
